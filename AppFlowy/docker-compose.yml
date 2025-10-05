@@ -22,7 +22,7 @@ services:
       - MINIO_ROOT_PASSWORD=${APPFLOWY_S3_SECRET_KEY:-minioadmin}
     command: server /data --console-address ":9001"
     volumes:
-      - minio_data:/data
+      - /mnt/holocron01/kamino/app_flowy/minio:/data
 
   postgres:
     restart: on-failure
@@ -38,7 +38,7 @@ services:
       timeout: 5s
       retries: 12
     volumes:
-      - postgres_data:/var/lib/postgresql/data
+      - /mnt/holocron01/kamino/app_flowy/postgres:/var/lib/postgresql/data
 
   redis:
     restart: on-failure
@@ -225,6 +225,3 @@ services:
       - APPFLOWY_BASE_URL=${APPFLOWY_BASE_URL}
       - APPFLOWY_GOTRUE_BASE_URL=${APPFLOWY_BASE_URL}/gotrue
       - APPFLOWY_WS_BASE_URL=${APPFLOWY_WEBSOCKET_BASE_URL}
-volumes:
-  postgres_data:
-  minio_data:
